@@ -16,7 +16,7 @@ bool Node::completed() {
     return this->state[8] == 0;
 }
 
-void Node::set(int index) {
+void Node::slide(int index) {
     this->state[index] = this->state[this->space];
     this->state[this->space] = 0;
 }
@@ -24,7 +24,23 @@ void Node::set(int index) {
 std::vector<std::shared_ptr<Node>>& Node::getNeighbours() {
     return this->neighbours;
 }
-    
+
+int Node::getCost() {
+    return this->cost;
+}
+
+void Node::setCost(int cost) {
+    this->cost = cost;
+}
+
+int Node::getEstimate() {
+    return this->estimate;
+}
+
+void Node::setEstimate(int estimate) {
+    this->estimate = estimate;
+}
+
 int Node::getSpace() {
     return this->space;
 }
@@ -34,7 +50,7 @@ int* Node::getState() {
 };
 
 std::shared_ptr<Node> Node::getParent() {
-        return this->parent;
+    return this->parent;
 }
 
 void Node::setParent(std::shared_ptr<Node> parent) {

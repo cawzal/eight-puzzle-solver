@@ -1,26 +1,36 @@
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <stack>
 
 #include "Display.h"
+#include "Node.h"
+#include "Search.h"
 
-void Display::print(std::shared_ptr<Node> node) {
-    std::stack<std::shared_ptr<Node>> nodes;
+Display::Display(Search* search) {
+    this->search = search;
+}
+
+void Display::print() {
+    std::cout << "Algorithm: " << this->search->getAlgorithm() << "\n";
+    std::cout << std::fixed << std::setprecision(5) << "Time: " << this->search->getTime() << "s\n";
+    std::cout << "Nodes examined: " << this->search->getCount() << "\n";
+
+    std::shared_ptr<Node> node = this->search->getResult();
+    std::stack<std::shared_ptr<Node>> states;
     std::stack<int> moves;
-    std::shared_ptr<Node> current = node;
-    
-    while (current != nullptr) {
-        nodes.push(current);
-        if (current->getParent() != nullptr)
-            moves.push(current->getState()[current->getParent()->getSpace()]);
-        current = current->getParent();
+    while (node != nullptr) {
+        states.push(node);
+        if (node->getParent() != nullptr)
+            moves.push(node->getState()[node->getParent()->getSpace()]);
+        node = node->getParent();
     }
     
     int total = moves.size();
-    std::cout << "Moves: " << total << "\n\n";
+    std::cout << "Moves required: " << total << "\n\n";
     
     while (!moves.empty()) {
-        node = nodes.top(); nodes.pop();
+        node = states.top(); states.pop();
         int move = moves.top(); moves.pop();
         int* state = node->getState();
         std::cout << "Move: " << total - moves.size() << "\n";
@@ -37,7 +47,7 @@ void Display::print(std::shared_ptr<Node> node) {
         std::cout << "\n";
     }
     
-    node = nodes.top(); nodes.pop();
+    node = states.top(); states.pop();
     std::cout << "Completed\n";
     int* state = node->getState();
     for (int i = 0; i < 9; i++) {

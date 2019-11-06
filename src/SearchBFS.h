@@ -3,11 +3,14 @@
 
 #include <memory>
 
+#include "Graph.h"
 #include "Node.h"
+#include "Search.h"
 
-class SearchBFS {
+class SearchBFS : public Search {
 public:
-    std::shared_ptr<Node> solve(std::shared_ptr<Node> root);
+    SearchBFS(Graph* graph);
+    std::shared_ptr<Node> solve();
 };
 
 #endif

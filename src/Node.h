@@ -7,15 +7,21 @@
 class Node {
 private:
     int state[9];
-    int space;
+    int space = 0;
     std::vector<std::shared_ptr<Node>> neighbours;
-    bool visited;
-    std::shared_ptr<Node> parent;
+    bool visited = false;
+    std::shared_ptr<Node> parent = nullptr;
+    int cost = 0;
+    int estimate = 0;
 public:
     Node(int state[9], int space);
     bool completed();
-    void set(int index);
+    void slide(int index);
     std::vector<std::shared_ptr<Node>>& getNeighbours();
+    int getCost();
+    void setCost(int cost);
+    int getEstimate();
+    void setEstimate(int estimate);
     int* getState();
     int getSpace();
     std::shared_ptr<Node> getParent();

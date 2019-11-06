@@ -1,6 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <memory>
 #include <unordered_set>
 
 #include "Node.h"

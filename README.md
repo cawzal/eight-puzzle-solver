@@ -1,20 +1,31 @@
 # Eight Puzzle Solver
 
-### Example (Building)
+Command line eight puzzle solver. The program constructs a graph of all the nodes, and then performs a search using the algorithm specified. The time indicates the duration of the search and not the time required to construct the graph. The heuristic used for the A* and IDA* algorithms in the manhattan distance.
+
+### Program Arguments
 
 ```
-g++ -o main main.cpp Display.cpp Graph.cpp Node.cpp SearchBFS.cpp
+program.exe puzzle algorithm
 ```
+The puzzle is provided as a nine digit sequence. The program does not  check for unsolvable board configurations before attempting to solve.
+The algorithm is selected based on the following options:
+- ``astar`` (A*)
+- ``bfs`` (breadth-first search)
+- ``idastar`` (IDA*),
+- ``iddfs`` (iterative deepening depth-first search)
 
 ### Example (Usage)
 
 ```
-main.exe 130426758
+main.exe 130426758 idastar
 ```
 
 ### Example (Output)
 ```
-Moves: 4
+Algorithm: IDA*
+Time: 0.00000s
+Nodes examined: 5
+Moves required: 4
 
 Move: 1
  1 [3] 0
@@ -40,4 +51,4 @@ Completed
  1  2  3
  4  5  6
  7  8  0
-```
+ ```

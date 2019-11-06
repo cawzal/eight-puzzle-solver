@@ -4,10 +4,14 @@
 #include <memory>
 
 #include "Node.h"
+#include "Search.h"
 
 class Display {
+private:
+    Search* search;
 public:
-    void print(std::shared_ptr<Node> node);
+    Display(Search* search);
+    void print();
 };
 
 #endif
