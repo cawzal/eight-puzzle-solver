@@ -2,6 +2,7 @@
 #include <iostream>
 #include <memory>
 #include <stack>
+#include <vector>
 
 #include "Display.h"
 #include "Node.h"
@@ -16,45 +17,33 @@ void Display::print() {
     std::cout << std::fixed << std::setprecision(5) << "Time: " << this->search->getTime() << "s\n";
     std::cout << "Nodes examined: " << this->search->getCount() << "\n";
 
-    std::shared_ptr<Node> node = this->search->getResult();
-    std::stack<std::shared_ptr<Node>> states;
-    std::stack<int> moves;
-    while (node != nullptr) {
-        states.push(node);
-        if (node->getParent() != nullptr)
-            moves.push(node->getState()[node->getParent()->getSpace()]);
-        node = node->getParent();
-    }
-    
-    int total = moves.size();
-    std::cout << "Moves required: " << total << "\n\n";
-    
-    while (!moves.empty()) {
-        node = states.top(); states.pop();
-        int move = moves.top(); moves.pop();
-        int* state = node->getState();
-        std::cout << "Move: " << total - moves.size() << "\n";
-        for (int i = 0; i < 9; i++) {
-            if (state[i] == move) {
-                std::cout << "[" << state[i] << "]";
-            } else {
-                std::cout << " " << state[i] << " ";
+    std::vector<std::shared_ptr<Node>> nodes = this->search->getResult();
+    std::cout << "Moves required: " << nodes.size() - 1<< "\n\n";
+
+    for (int i = nodes.size() - 1; i >= 0; i--) {
+        int* state = nodes.at(i)->getState();
+        if (i != 0) {
+            std::cout << "Move: " << i << "\n";
+            int move = nodes.at(i - 1)->getState()[nodes.at(i)->getSpace()];
+            for (int i = 0; i < 9; i++) {
+                if (state[i] == move) {
+                    std::cout << "[" << state[i] << "]";
+                } else {
+                    std::cout << " " << state[i] << " ";
+                }
+                if ((i + 1) % 3 == 0) {
+                    std::cout << "\n";
+                }
             }
-            if ((i + 1) % 3 == 0) {
-                std::cout << "\n";
+        } else {
+            std::cout << "Completed\n";
+            for (int i = 0; i < 9; i++) {
+                std::cout << " " << state[i] << " ";
+                if ((i + 1) % 3 == 0) {
+                    std::cout << "\n";
+                }
             }
         }
         std::cout << "\n";
     }
-    
-    node = states.top(); states.pop();
-    std::cout << "Completed\n";
-    int* state = node->getState();
-    for (int i = 0; i < 9; i++) {
-        std::cout << " " << state[i] << " ";
-        if ((i + 1) % 3 == 0) {
-            std::cout << "\n";
-        }
-    }
-    std::cout << "\n";
 }

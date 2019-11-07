@@ -8,7 +8,7 @@
 
 SearchIDDFS::SearchIDDFS(Graph* graph) : Search(graph, "IDDFS") {}
 
-std::shared_ptr<Node> SearchIDDFS::solve() {
+void SearchIDDFS::solve() {
     auto s = std::chrono::high_resolution_clock::now();
     
     std::shared_ptr<Node> root = this->graph->getRoot();
@@ -25,11 +25,18 @@ std::shared_ptr<Node> SearchIDDFS::solve() {
             this->count = counter;
             this->time = t.count();
             
-            return this->result;
+            break;
         }
         depth++;
     }
-    return nullptr;
+    
+    std::vector<std::shared_ptr<Node>> nodes;
+    std::shared_ptr<Node> current = this->found;
+    while (current != nullptr) {
+        nodes.push_back(current);
+        current = current->getParent();
+    }
+    this->result = nodes;
 }
 
 bool SearchIDDFS::recurse(std::shared_ptr<Node> node, int depth, int max, int& counter) {
@@ -38,7 +45,7 @@ bool SearchIDDFS::recurse(std::shared_ptr<Node> node, int depth, int max, int& c
 
     counter++;
     if (node->completed()) {
-        this->result = node;
+        this->found = node;
         return true;
     }
     

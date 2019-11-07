@@ -10,7 +10,7 @@
 class SearchAStar : public Search {
 public:
     SearchAStar(Graph* graph);
-    std::shared_ptr<Node> solve();
+    void solve();
 };
 
 struct AStarComparator {

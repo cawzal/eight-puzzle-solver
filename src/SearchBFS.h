@@ -10,7 +10,7 @@
 class SearchBFS : public Search {
 public:
     SearchBFS(Graph* graph);
-    std::shared_ptr<Node> solve();
+    void solve();
 };
 
 #endif

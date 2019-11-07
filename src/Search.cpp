@@ -29,7 +29,7 @@ int Search::getCount() {
     return this->count;
 }
 
-std::shared_ptr<Node> Search::getResult() {
+std::vector<std::shared_ptr<Node>> Search::getResult() {
     return this->result;
 }
 

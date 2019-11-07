@@ -1,18 +1,18 @@
 # Eight Puzzle Solver
 
-Command line eight puzzle solver. The program constructs a graph of all the nodes, and then performs a search using the algorithm specified. The time indicates the duration of the search and not the time required to construct the graph. The heuristic used for the A* and IDA* algorithms in the manhattan distance.
+Command line eight puzzle solver. Program constructs a graph of all the nodes, and then performs a search using the algorithm specified. Time indicates the duration of the search and not the time required to construct the graph. Heuristic used for the A* and IDA* algorithms is the manhattan distance.
 
 ### Program Arguments
 
 ```
 program.exe puzzle algorithm
 ```
-The puzzle is provided as a nine digit sequence. The program does not  check for unsolvable board configurations before attempting to solve.
-The algorithm is selected based on the following options:
+
+Puzzle is provided as a nine digit sequence where the blank tile is represented by zero. Program does not check for unsolvable board configurations before attempting to solve. Algorithm is selected based on the following options:
 - ``astar`` (A*)
-- ``bfs`` (breadth-first search)
-- ``idastar`` (IDA*),
-- ``iddfs`` (iterative deepening depth-first search)
+- ``bfs`` (Breadth-First search)
+- ``idastar`` (IDA*)
+- ``iddfs`` (Iterative Deepening Depth-First Search)
 
 ### Example (Usage)
 

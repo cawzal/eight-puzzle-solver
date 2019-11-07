@@ -10,7 +10,7 @@
 
 SearchAStar::SearchAStar(Graph* graph) : Search(graph, "A*") {}
 
-std::shared_ptr<Node> SearchAStar::solve() {
+void SearchAStar::solve() {
     auto s = std::chrono::high_resolution_clock::now();
 
     std::priority_queue<std::shared_ptr<Node>, std::vector<std::shared_ptr<Node>>, AStarComparator> queue;
@@ -30,10 +30,15 @@ std::shared_ptr<Node> SearchAStar::solve() {
             std::chrono::duration<double> t = f - s;
 
             this->count = counter;
-            this->result = front;
             this->time = t.count();
-
-            return front;
+            
+            std::vector<std::shared_ptr<Node>> nodes;
+            std::shared_ptr<Node> current = front;
+            while (current != nullptr) {
+                nodes.push_back(current);
+                current = current->getParent();
+            }
+            this->result = nodes;
         }
 
         for (const std::shared_ptr<Node>& neighbour : front->getNeighbours()) {
@@ -47,5 +52,4 @@ std::shared_ptr<Node> SearchAStar::solve() {
             }
         }
     }
-    return nullptr;
 }

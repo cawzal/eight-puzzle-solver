@@ -8,9 +8,11 @@
 #include "Search.h"
 
 class SearchIDDFS : public Search {
+private:
+    std::shared_ptr<Node> found;
 public:
     SearchIDDFS(Graph* graph);
-    std::shared_ptr<Node> solve();
+    void solve();
 private:
     bool recurse(std::shared_ptr<Node> node, int depth, int max, int& counter);
 };

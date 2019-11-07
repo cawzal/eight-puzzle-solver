@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "Graph.h"
 #include "Node.h"
@@ -11,15 +12,15 @@ class Search {
 protected:
     Graph* graph;
     std::string algorithm;
-    std::shared_ptr<Node> result = nullptr;
+    std::vector<std::shared_ptr<Node>> result;
     int count = 0;
     double time = 0;
 public:
     Search(Graph* graph, std::string algorithm);
-    virtual std::shared_ptr<Node> solve() = 0;
+    virtual void solve() = 0;
     std::string getAlgorithm();
     int getCount();
-    std::shared_ptr<Node> getResult();
+    std::vector<std::shared_ptr<Node>> getResult();
     double getTime();
 protected:
     int heuristic(int state[9]);

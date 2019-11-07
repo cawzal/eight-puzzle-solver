@@ -8,9 +8,11 @@
 #include "Search.h"
 
 class SearchIDAStar : public Search {
+private:
+    std::shared_ptr<Node> found;
 public:
     SearchIDAStar(Graph* graph);
-    std::shared_ptr<Node> solve();
+    void solve();
 private:
     bool recurse(std::shared_ptr<Node> node, int depth, int& counter);
 };

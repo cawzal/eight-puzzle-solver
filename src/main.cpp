@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     }
     search->solve();
     
-    if (search->getResult() == nullptr) {
+    if (search->getResult().size() == 0) {
         std::cout << "Error: Unable to solve provided configuration\n";
         return 0;
     }

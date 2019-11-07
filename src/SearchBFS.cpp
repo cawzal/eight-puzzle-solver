@@ -1,6 +1,7 @@
 #include <chrono>
 #include <queue>
 #include <memory>
+#include <vector>
 
 #include "Graph.h"
 #include "Node.h"
@@ -9,7 +10,7 @@
 
 SearchBFS::SearchBFS(Graph* graph) : Search(graph, "BFS") {};
 
-std::shared_ptr<Node> SearchBFS::solve() {
+void SearchBFS::solve() {
     auto s = std::chrono::high_resolution_clock::now();
 
     std::queue<std::shared_ptr<Node>> queue;
@@ -27,10 +28,15 @@ std::shared_ptr<Node> SearchBFS::solve() {
             std::chrono::duration<double> t = f - s;
 
             this->count = counter;
-            this->result = front;
             this->time = t.count();
 
-            return front;
+            std::vector<std::shared_ptr<Node>> nodes;
+            std::shared_ptr<Node> current = front;
+            while (current != nullptr) {
+                nodes.push_back(current);
+                current = current->getParent();
+            }
+            this->result = nodes;
         }
 
         for (const std::shared_ptr<Node>& neighbour : front->getNeighbours()) {
@@ -41,5 +47,4 @@ std::shared_ptr<Node> SearchBFS::solve() {
             }
         }
     }
-    return nullptr;
 }
